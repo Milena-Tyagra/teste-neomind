@@ -87,7 +87,7 @@ angular.module('app').controller('suppliersCtrl', function($scope, $rootScope, S
                 'success'
             )
             SuppliersService.get().then(function (response) {
-                $scope.suppliers = response.data
+                $scope.suppliers = response.data ?? []
              })
         },
         function() {
