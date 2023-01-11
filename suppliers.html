@@ -1,0 +1,108 @@
+<div class="container">
+    <div id="alert" class="alert fade" role="alert">
+    </div>
+    <div class="well mb-5 d-flex justify-content-between">
+        <h1>Fornecedores</h1>
+        <button ng-click="dealWithSupplier()" class="btn btn-primary">Novo Registro de Fornecedor</button>
+    </div>
+    <form  class="card border-primary p-5" name="formNewSupplier" ng-if="addSupplier || editSupplier">
+        <div class="row">
+            <div class="well col-12 ">
+                <h3 class="text-center">Dados Cadastrais</h3>
+            </div>
+            <div class="form-group col-12">
+                <label>Nome da empresa</label>
+                <input ng-blur ng-model="supplier.name" required type="text" class="form-control" ng-readonly="viewMode"/>
+            </div>
+            <div class="form-group col-6">
+                <label>CNPJ</label>
+                <input ng-blur ng-model="supplier.cnpj" ng-pattern="/^[0-9]{2,3}\.[0-9]{3}\.[0-9]{3}\/[0-9]{4}-[0-9]{2}$/" required type="text" class="form-control" ng-readonly="viewMode"/>
+            </div>
+            <div class="form-group col-6">
+                <label>Telefone</label>
+                <input ng-blur ng-model="supplier.phone" required type="number" class="form-control" ng-readonly="viewMode"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="well col-12">
+                <h3 class="text-center">Endereço</h3>
+            </div>
+            <div class="form-group col-6">
+                <label>CEP</label>
+            <input ng-blur ng-model="supplier.cep" ng-cep-validator type="text" class="form-control" ng-readonly="viewMode"/>
+            </div>
+
+            <div class="form-group col-10">
+                <label>Rua</label>
+                <input ng-blur ng-model="supplier.street" type="text" class="form-control" ng-readonly="viewMode"/>
+            </div>
+            <div class="form-group col-2">
+                <label>Numero</label>
+                <input ng-blur ng-model="supplier.number" type="text" class="form-control" ng-readonly="viewMode"/>
+            </div>
+            <div class="form-group col-6">
+                <label>Bairro</label>
+                <input ng-blur ng-model="supplier.neigborhood" type="text" class="form-control" ng-readonly="viewMode"/>
+            </div>
+            <div class="form-group col-6">
+                <label>Cidade</label>
+                <input ng-blur ng-model="supplier.city" type="text" class="form-control" ng-readonly="viewMode"/>
+            </div>
+            <div class="form-group col-6">
+                <label>Estado</label>
+                <input ng-blur ng-model="supplier.state" type="text" class="form-control" ng-readonly="viewMode"/>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between">
+            <button ng-click="backToSuppliers()" type="button" class="btn btn-outline-primary">
+                <i class="bi bi-arrow-left"></i>
+                Voltar
+            </button>
+            <ng-supplier-submit 
+                ng-if="viewMode"
+                submit="updateSuppliers(supplier)"
+            ></ng-supplier-submit>
+        </div>
+    </form>
+    <table ng-if="!addSupplier && !editSupplier" class="table">
+        <thead>
+            <th>Nome da Empresa</th>
+            <th>CNPJ</th>
+            <th>Telefone</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </thead>
+
+        <tbody>
+            <tr ng-repeat="supplier in suppliers">
+                <td ng-click="teste()" >{{supplier.name }}</td>
+                <td>{{supplier.cnpj }}</td>
+                <td>{{supplier.phone }}</td>
+
+                <td>
+                    <button ng-click="dealWithSupplier(supplier, true)" type="button" class="btn btn-outline-info">
+                        <i class="bi bi-eye"></i>
+                    </button>
+                </td>
+                <td>
+                    <button ng-click="dealWithSupplier(supplier)" type="button" class="btn btn-outline-primary">
+                        <i class="bi bi-pencil-square"></i>
+                    </button>
+                </td>
+                <td>
+                    <button ng-click="deleteSupplier(supplier)"  type="button" class="btn btn-outline-danger">
+                        <i class="bi bi-trash-fill"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+      
+
+    <div ng-if="suppliers.length < 1 && !addSupplier" class="alert alert-info text-center d-flex flex-column" role="alert">
+        <span>Você ainda não cadastrou nenhum fornecedor!</span>
+        <span>Para cadastrar seu primeiro registro, clique no botão acima.</span>
+    </div>
+    
+</div>
